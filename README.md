@@ -87,11 +87,13 @@ supabase functions deploy create-counsellor
 
 ### 5. Seed an admin user
 
-In the Supabase dashboard → Authentication → Users, create a user manually, then run in the SQL editor:
+In the Supabase dashboard → Authentication → Users, create a user manually (make sure to confirm their email or tick "Auto Confirm User"). The `on_auth_user_created` trigger will automatically insert a row into `public.profiles`. Then promote them to admin in the SQL editor:
 
 ```sql
 UPDATE public.profiles SET role = 'admin' WHERE email = 'your-admin@example.com';
 ```
+
+> **Note:** The user must have a confirmed email before they can log in. When creating users via the dashboard you can tick "Auto Confirm User", or set `email_confirm: true` when using the `create-counsellor` Edge Function (already set by default).
 
 ---
 
